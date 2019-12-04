@@ -15,6 +15,8 @@ SPIDER_MODULES = ['xicidailiSpider.spiders']
 NEWSPIDER_MODULE = 'xicidailiSpider.spiders'
 
 
+
+LOG_LEVEL = "WARNING"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'xicidailiSpider (+http://www.yourdomain.com)'
 
@@ -27,22 +29,36 @@ ROBOTSTXT_OBEY = False  # robot协议，哪些可以哪些不可以爬
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3  # 防止被禁IP，
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = False
+
+MYSQL_HOST = '127.0.0.1'				#Mysql连接名
+MYSQL_PORT = 3306					#连接端口号
+MYSQL_USER = 'root'						#Mysql用户名
+MYSQL_PASS = '19961006'						#Mysql用户密码
+MYSQL_DB = 'testspider11'						#Mysql数据库名
+MYSQL_CHARSET = 'utf8'                 # 编码格式
+MYSQL_TABLE = 'NEWSPAPER_INFO'
+
+MYSQL_TABLE_IP = "IP"
+MYSQL_TABLE_PORT = "PORT"
+
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                'Chrome/77.0.3865.90 Safari/537.36'
+}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
@@ -64,9 +80,11 @@ ROBOTSTXT_OBEY = False  # robot协议，哪些可以哪些不可以爬
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'xicidailiSpider.pipelines.XicidailispiderPipeline': 300,
-#}
+# 参数越小时，越先执行哪一个pipeline
+ITEM_PIPELINES = {
+   'xicidailiSpider.pipelines.XicidailispiderPipeline': 300,
+   # 'xicidailiSpider.pipelines.XicidailispiderPipeline1': 301,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
